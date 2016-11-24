@@ -1,8 +1,10 @@
 <?php
+$local_endpoint = "http://http://localhost/kps_honoka/";
+$staging_endpoint = "http://131.113.100.213/~j140098t/kps_honoka/";
 
-$url = "../../../.env";
+$env_url = "../../../.env";
 // $url = "jsondata.json";
-$json = file_get_contents($url);
+$json = file_get_contents($env_url);
 $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
 $arr = json_decode($json,true);
 $debug = 0;
@@ -22,34 +24,38 @@ if ($arr === NULL) {
       $bc_pass[] = $arr["env"]["database"][$i]["pass"];
   }
 
-  print"練習\n";
-  $a = 0;
-  while ($a != 2) {
-    print"
-    dbhost: $bc_host[$a] <br>
-    dbname: $bc_name[$a] <br>
-    dbuser: $bc_user[$a] <br>
-    dbpass: $bc_pass[$a] <br>
-    ";
-    $a++;
-  }
+  // print"練習\n";
+  // $a = 0;
+  // while ($a != 3) {
+  //   print"
+  //   dbhost: $bc_host[$a] <br>
+  //   dbname: $bc_name[$a] <br>
+  //   dbuser: $bc_user[$a] <br>
+  //   dbpass: $bc_pass[$a] <br>
+  //   ";
+  //   $a++;
+  // }
 }
 
-$login_name = $_POST['input_id'];
-$password = $_POST['password'];
+$login_name = $_POST['login_name'];
+$password = $_POST['login_password'];
 
-$link = mysql_connect($bc_host[$debug], $bc_user[$debug], $bc_pass[$debug]);
-if (!$link) {
-    die('接続できませんでした: ' . mysql_error());
+if (empty($login_name)||empty($password)) {
+  $url = $staging_endpoint.'php/users/signin/login.php' ;
+  $no = 2;
+  header("Location: {$url}?no=".$no);
+  exit;
 }
-print "success";
-mysql_close($link);
 
-$con_str = "host={$bc_host[$debug]} dbname={$bc_name[$debug]} user={$bc_user[$debug]} password=$bc_pass[$debug]" ;
+
+$con_str = "host={$bc_host[$debug]} dbname={$bc_name[$debug]} user={$bc_user[$debug]}" ;
 # $con_str = "host=localhost dbname=testdb user=test password=test_paSS2";
-print "hello";
+print "pgconnect()<br>";
+print "input: $login_name $password<br>";
 print "$con_str";
-$conn = pg_connect ($con_str);
+
+$conn = pg_connect ($con_str); // ここで処理が止まっている様子
+print "debug";
 
 # $hashpwd = password_hash($password, PASSWORD_DEFAULT);
 
@@ -63,14 +69,20 @@ $result = pg_execute ($conn, "my_query", array($login_name));
 if(pg_num_rows($result)==1){
   $row = pg_fetch_assoc($result,0);
   if(password_verify($password,$row['password'])){
-    print "{$row['login_name']}さん<br>ようこそ<br>";
-    print "<a href=\"../../main/top.php\">Topページ</a>へ";
+    // print "{$row['login_name']}さん<br>ようこそ<br>";
+    // print "<a href=\"../../main/top.php\">Topページ</a>へ";
+    $url = $staging_endpoint.'php/main/top.php' ;
+    header("Location: {$url}");
+    exit;
   }else{
     print "パスワードが間違っています<br>";
     print "<a href=\"login.php\">ログインページ</a>へ";
   }
 }else{
   print "ユーザ名は存在しません<br>";
-  print "<a href=\"login.php\">ログインページ</a>へ<br>";
-  print "<a href=\"../signup/input.php\">ユーザ登録ページ</a>へ";
+  # $url = $local_endpoint.'php/users/signin/login.php';
+  $url = $staging_endpoint.'php/users/signin/login.php' ;
+  $no = 1;
+  header("Location: {$url}?no=".$no);
+  exit;
 } ?>

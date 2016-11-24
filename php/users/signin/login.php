@@ -12,7 +12,9 @@
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="/kps_honoka/" class="navbar-brand">KPS</a>
+          <!-- TOFIX end point -->
+          <!-- <a href="/kps_honoka/" class="navbar-brand">KPS</a> -->
+          <a href="../../../" class="navbar-brand">KPS</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -59,14 +61,14 @@
               <div class="form-group">
                 <label for="input_id" class="col-lg-2 control-label">ID / E-mail</label>
                 <div class="col-lg-10">
-                  <input type="text" id="userid" class="form-control">
+                  <input type="text" id="input_id" name="login_name" class="form-control">
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                <label for="input_password" class="col-lg-2 control-label">Password</label>
                 <div class="col-lg-10">
-                  <input type="password" id="pass" class="form-control">
+                  <input type="password" id="input_password" name="login_password" class="form-control">
                   <div class="checkbox">
                     <label>
                       <input type="checkbox"> Checkbox
@@ -93,16 +95,50 @@
     </div>
   </div>
 
-  <div class="bs-docs-section">
+  <?php
+  $login_failed = 0;
+  if (isset($_GET['no'])) {
+    $login_failed = $_GET['no'];
+  }
+
+
+  if ($login_failed==1) {
+    // 不正なIDまたはパスワード
+    echo '<div class="bs-docs-section">
+      <div class="bs-component">
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          ログインに失敗しました。 <strong> ログインID (メールアドレス) </strong> または, <strong>パスワード</strong>が違います。<a href="#" class="alert-link">Try again</a>
+        </div>
+      </div>
+    </div>';
+  } else if ($login_failed==2) {
+    // どちらかの入力がない
+    echo '<div class="bs-docs-section">
+      <div class="bs-component">
+        <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong> ログインID (メールアドレス) </strong> と, <strong>パスワード</strong>を入力してください。
+        </div>
+      </div>
+    </div>';
+  }
+  ?>
+  <!-- phpスクリプト内で実行 -->
+  <!-- <div class="bs-docs-section">
     <div class="bs-component">
       <div class="alert alert-dismissible alert-danger">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+        ログインに失敗しました。 <strong> ログインID (メールアドレス) </strong> または, <strong>パスワード</strong>が違います。<a href="#" class="alert-link">Try again</a>
       </div>
     </div>
-  </div>
+  </div> -->
 
   </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+  <script src="../../../js/bootstrap.min.js"></script>
 
 </body>
 </html>
