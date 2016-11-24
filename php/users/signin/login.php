@@ -30,27 +30,27 @@
 
 
 
-    <section class="section section-default">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-12 subtitle">
-            <h1>Sign in to Members' Page</h1>
-            <p>ログインIDとパスワードを入力してください</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <p>アカウントを持っていない場合は <a href="//github.com/windyakin/Honoka#readme">README</a> または <a href="//github.com/windyakin/Honoka/wiki">Wiki</a> をご確認ください</p>
-          </div>
+  <section class="section section-default">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 subtitle">
+          <h1>Sign in to Members' Page</h1>
+          <p>ログインIDとパスワードを入力してください</p>
         </div>
       </div>
-    </section>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p>アカウントを持っていない場合は <a href="//github.com/windyakin/Honoka#readme">README</a> または <a href="//github.com/windyakin/Honoka/wiki">Wiki</a> をご確認ください</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <div class="container">
-
-    <div class="row">
-      <div class="col-lg-10">
-        <div class="well bs-component">
+  <div class="container">
+    <div class="bs-docs-section">
+      <div class="well bs-component">
+        <div class="row">
+          <div class="col-lg-12">
 
           <form method="POST" action="./login_check.php">
             <fieldset>
@@ -62,7 +62,7 @@
                   <input type="text" id="userid" class="form-control">
                 </div>
               </div>
-              
+
               <div class="form-group">
                 <label for="inputPassword" class="col-lg-2 control-label">Password</label>
                 <div class="col-lg-10">
@@ -76,32 +76,31 @@
               </div>
 
               <div class="center-block">
-                <div class="col-lg-10">
+                <div class="col-lg-12">
                   <button type="submit" class="btn btn-primary btn-lg btn-block" value="OK">ログイン</button>
                 </div>
               </div>
 
             </fieldset>
           </form>
-        </div>
 
-        <div class="container-fluid">
-          <p class="text-right"><a href="#" class="btn btn-link">パスワードを忘れた場合</a></p>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="bs-component">
-          <div class="alert alert-dismissible alert-danger">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+          <div class="container-fluid">
+            <p class="text-right"><a href="#" class="btn btn-link">パスワードを忘れた場合</a></p>
           </div>
         </div>
+
       </div>
     </div>
+  </div>
+
+  <div class="bs-docs-section">
+    <div class="bs-component">
+      <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+      </div>
+    </div>
+  </div>
 
   </div>
 
