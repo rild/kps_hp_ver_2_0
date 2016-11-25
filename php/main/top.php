@@ -41,20 +41,20 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Kousaka Honoka</a></li>
-                <li><a href="#">Minami Kotori</a></li>
-                <li><a href="#">Sonoda Umi</a></li>
+                <!-- general -->
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Portfolio</a></li>
+                <!-- admin -->
                 <li class="divider"></li>
-                <li><a href="#">Koizumi Hanayo</a></li>
-                <li><a href="#">Hoshizora Rin</a></li>
-                <li><a href="#">Nishikino Maki</a></li>
+                <li><a href="#">Concert</a></li>
+                <li><a href="#">Member</a></li>
+                <li><a href="#">Article</a></li>
+                <!-- user config -->
                 <li class="divider"></li>
-                <li><a href="#">Yazawa Nico</a></li>
-                <li><a href="#">Ayase Eli</a></li>
-                <li><a href="#">Tojo Nozomi</a></li>
+                <li><a href="#">User Config</a></li>
+                <li><a href="#">Help</a></li>
               </ul>
             </li>
-            <li><a href="//github.com/windyakin/Honoka/releases">User</a></li>
           </ul>
           <!-- search -->
           <form class="navbar-form navbar-left" role="search">
@@ -70,6 +70,22 @@
       </div>
     </div>
   </header>
+
+  <section class="section section-default">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 subtitle">
+          <h1>ようこそ</h1>
+          <p>最新の更新</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p>アカウントを持っていない場合は <a href="//github.com/windyakin/Honoka#readme">README</a> または <a href="//github.com/windyakin/Honoka/wiki">Wiki</a> をご確認ください</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="section section-default">
   <div class="container">
