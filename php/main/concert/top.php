@@ -58,19 +58,20 @@
 
       <!-- Page Content -->
       <div id="page-content-wrapper">
-          <section class="section section-default">
-            <div class="container">
-              <div class="row">
-                <div class="col-xs-12 subtitle">
-                  <h1>ようこそ</h1>
-                  <p>最新の更新</p>
-                </div>
+        <!-- <section class="section section-default">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 subtitle">
+                <h1>ようこそ</h1>
+                <p>最新の更新</p>
               </div>
-
             </div>
-          </section>
 
+          </div>
+        </section> -->
+        
           <div class="container-fluid">
+
               <div class="row">
                   <div class="col-lg-12">
                       <h1>すべての演奏会</h1>

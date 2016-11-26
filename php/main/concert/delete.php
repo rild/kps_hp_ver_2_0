@@ -54,6 +54,64 @@
               </div>
           </div>
 
+          <div class="bs-component">
+            <form class="form-horizontal">
+            <table class="table table-striped table-hover ">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>#</th>
+                  <th>Column heading</th>
+                  <th>Column heading</th>
+                  <th>Column heading</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox"></td>
+                  <td>1</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox"></td>
+                  <td>2</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                </tr>
+                <tr class="info">
+                  <td><input type="checkbox"></td>
+                  <td>3</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                </tr>
+                <tr class="success">
+                  <td><input type="checkbox"></td>
+                  <td>4</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                  <td>Column content</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <p class="bs-component">
+                <a href="#" class="btn btn-default">Default</a>
+              </p>
+            </div>
+          </div>
+          
+
       </div>
       <!-- /#page-content-wrapper -->
   </div>
