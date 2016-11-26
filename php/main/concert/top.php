@@ -1,5 +1,3 @@
-<!-- 使ってない by rild-->
-
 <html>
 <head>
   <meta charset="UTF-8">
@@ -35,26 +33,43 @@
 
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="page-header">
-              <h4>Concert</h4>
-            </div>
-          </div>
-          <div class="list-group">
-            <a href="#" class="list-group-item active">一覧</a>
-            <a href="#" class="list-group-item">検索</a>
-            <a href="#" class="list-group-item">登録</a>
-            <a href="#" class="list-group-item">削除</a>
-          </div>
-        </div>
-
-
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="top.php">ホーム</a></li>
+          <li><a href="all.php">一覧</a></li>
+          <li><a href="search.php">検索</a></li>
+          <li><a href="regist.php">登録</a></li>
+          <li><a href="delete.php">削除</a></li>
+          <li class="disabled"><a href="#">Disabled</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              Dropdown <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
       <!-- /#sidebar-wrapper -->
 
       <!-- Page Content -->
       <div id="page-content-wrapper">
+          <section class="section section-default">
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12 subtitle">
+                  <h1>ようこそ</h1>
+                  <p>最新の更新</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
           <div class="container-fluid">
               <div class="row">
                   <div class="col-lg-12">
@@ -110,29 +125,6 @@
               </div>
             </div>
           </div>
-
-          <section class="section section-default">
-            <div class="container">
-              <div class="row">
-                <div class="col-xs-12 subtitle">
-                  <h1>ようこそ</h1>
-                  <p>最新の更新</p>
-                </div>
-              </div>
-
-            </div>
-          </section>
-
-          <section class="section section-default">
-          <div class="container">
-            <h1>メニュー</h1>
-            <a href="search.php">演奏会検索</a><br>
-            <a href="list.php">演奏会一覧</a><br>
-            <a href="create.php">演奏会登録</a><br>
-            <a href="password.php">パスワード変更</a><br>
-            <a href="logout.php">ログアウト</a><br>
-          </div>
-          </section>
       </div>
       <!-- /#page-content-wrapper -->
   </div>

@@ -36,8 +36,8 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 subtitle">
-          <h1>Sign in to Members' Page</h1>
-          <p>ログインIDとパスワードを入力してください</p>
+          <h1>ログインIDとパスワードを入力してください</h1>
+          <p>Sign in to Members' Page</p>
         </div>
       </div>
       <div class="row">
