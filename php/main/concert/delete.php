@@ -1,3 +1,5 @@
+<!-- TODO クエリでページ移動 GET -->
+
 <html>
 <head>
   <meta charset="UTF-8">
@@ -110,7 +112,7 @@
               </p>
             </div>
           </div>
-          
+
 
       </div>
       <!-- /#page-content-wrapper -->
