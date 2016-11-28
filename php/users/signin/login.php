@@ -104,24 +104,28 @@
 
   if ($login_failed==1) {
     // 不正なIDまたはパスワード
-    echo '<div class="bs-docs-section">
+echo <<<EOM
+    <div class="bs-docs-section">
       <div class="bs-component">
         <div class="alert alert-dismissible alert-danger">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
           ログインに失敗しました。 <strong> ログインID (メールアドレス) </strong> または, <strong>パスワード</strong>が違います。<a href="#" class="alert-link">Try again</a>
         </div>
       </div>
-    </div>';
+    </div>
+EOM;
   } else if ($login_failed==2) {
     // どちらかの入力がない
-    echo '<div class="bs-docs-section">
+echo <<<EOM
+    <div class="bs-docs-section">
       <div class="bs-component">
         <div class="alert alert-dismissible alert-danger">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
           <strong> ログインID (メールアドレス) </strong> と, <strong>パスワード</strong>を入力してください。
         </div>
       </div>
-    </div>';
+    </div>
+EOM;
   }
   ?>
   <!-- phpスクリプト内で実行 -->
