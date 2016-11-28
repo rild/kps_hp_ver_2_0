@@ -57,7 +57,7 @@
           <div class="bs-docs-section">
 
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-12">
                 <div class="bs-component">
                   <ul class="breadcrumb">
                     <li class="active">Home</li>
@@ -78,6 +78,63 @@
 
               <!-- Tables
               ================================================== -->
+              <div class="col-lg-12">
+                <div class="page-header">
+                  <h1 id="tables">演奏会一覧</h1>
+                </div>
+
+                  <table class="table table-striped table-hover ">
+                    <thead>
+                      <tr>
+                        <th>id</th>
+                        <th>演奏会名</th>
+                        <th>場所</th>
+                        <th>開催日</th>
+                        <th>開場</th>
+                        <th>開演</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+<?php
+$database = "j140098t";
+
+$db_conn = pg_connect ("host=localhost dbname=$database user=j140098t");
+
+if (!$db_conn) {
+  echo "Failed connecting to postgres database $database\n";
+  exit;
+}
+
+$qu = pg_query($db_conn, "SELECT c.concert_id, c.concert_name, h.hall_name, c.concert_year, c.concert_month, c.concert_day,
+  c.concert_begin_time_hour, c.concert_begin_time_min, c.concert_open_time_hour, c.concert_open_time_min
+  FROM kps_concert c, kps_hall h where c.concert_hall = h.hall_id");
+
+  while ($data = pg_fetch_object($qu)) {
+    $date = $data->concert_year.'/'.str_pad($data->concert_month, 2, 0, STR_PAD_LEFT).'/'.str_pad($data->concert_day, 2, 0, STR_PAD_LEFT);
+    $begin = str_pad($data->concert_begin_time_hour, 2, 0, STR_PAD_LEFT).':'.str_pad($data->concert_begin_time_min, 2, 0, STR_PAD_LEFT);
+    $open = str_pad($data->concert_open_time_hour, 2, 0, STR_PAD_LEFT).':'.str_pad($data->concert_open_time_min, 2, 0, STR_PAD_LEFT);
+
+    echo <<< EOD
+    <tr>
+      <td>$data->concert_id</td>
+      <td>$data->concert_name</td>
+      <td>$data->hall_name</td>
+      <td>$date</td>
+      <td>$begin</td>
+      <td>$open</td>
+    </tr>
+EOD;
+  }
+
+pg_free_result($qu);
+pg_close($db_conn);
+
+?>
+                  </tbody>
+                </table>
+              </div><!-- /example -->
+
+
               <div class="col-lg-12">
                 <div class="page-header">
                   <h1 id="tables">Tables</h1>
