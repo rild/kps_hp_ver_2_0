@@ -1,9 +1,9 @@
 <?php
 $local_endpoint = "http://localhost/kps_honoka/";
 $staging_endpoint = "http://131.113.100.213/~j140098t/kps_honoka/";
-$endpoint = $local_endpoint;
+$endpoint = $staging_endpoint;
 
-echo '
+echo <<<EOM
 <header>
   <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -50,5 +50,5 @@ echo '
     </div>
   </div>
 </header>
-';
+EOM;
 ?>

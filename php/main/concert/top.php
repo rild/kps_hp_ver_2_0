@@ -58,74 +58,68 @@
 
       <!-- Page Content -->
       <div id="page-content-wrapper">
-        <!-- <section class="section section-default">
-          <div class="container">
-            <div class="row">
-              <div class="col-xs-12 subtitle">
-                <h1>ようこそ</h1>
-                <p>最新の更新</p>
-              </div>
-            </div>
-
-          </div>
-        </section> -->
 
           <div class="container-fluid">
 
               <div class="row">
                   <div class="col-lg-12">
-                      <h1>すべての演奏会</h1>
+                    <div class="page-header">
+                      <h1 id="type">Concert</h1>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <blockquote>
+                     <p>ConcertのTopページ。左のサイドニューから選択をしてください。</p>
+                     <small>Concert > Top にはサイトの更新履歴などのログが表示されます。</small>
+                   </blockquote>
                   </div>
               </div>
           </div>
 
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="bs-component">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <span class="badge">14</span>
-                    Cras justo odio
-                  </li>
-                  <li class="list-group-item">
-                    <span class="badge">2</span>
-                    Dapibus ac facilisis in
-                  </li>
-                  <li class="list-group-item">
-                    <span class="badge">1</span>
-                    Morbi leo risus
-                  </li>
-                </ul>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="bs-component">
+                  <p class="text-muted">サイトに登録されている演奏会</p>
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <span class="badge">14</span>
+                      Concert all registed
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="bs-component">
-                <div class="list-group">
-                  <a href="#" class="list-group-item active">
-                    Cras justo odio
-                  </a>
-                  <a href="#" class="list-group-item">Dapibus ac facilisis in
-                  </a>
-                  <a href="#" class="list-group-item">Morbi leo risus
-                  </a>
+              <div class="col-lg-4">
+                <div class="bs-component">
+                  <p class="text-muted">最新の演奏会情報</p>
+                  <div class="list-group">
+                    <a href="#" class="list-group-item active">
+                      Cras justo odio
+                    </a>
+                    <a href="#" class="list-group-item">Dapibus ac facilisis in
+                    </a>
+                    <a href="#" class="list-group-item">Morbi leo risus
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="bs-component">
+                  <p class="text-muted">Concertページ更新履歴</p>
+                  <div class="list-group">
+                    <a href="#" class="list-group-item">
+                      <h4 class="list-group-item-heading">List group item heading</h4>
+                      <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                    </a>
+                    <a href="#" class="list-group-item">
+                      <h4 class="list-group-item-heading">List group item heading</h4>
+                      <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-4">
-              <div class="bs-component">
-                <div class="list-group">
-                  <a href="#" class="list-group-item">
-                    <h4 class="list-group-item-heading">List group item heading</h4>
-                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                  </a>
-                  <a href="#" class="list-group-item">
-                    <h4 class="list-group-item-heading">List group item heading</h4>
-                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div>
       </div>
       <!-- /#page-content-wrapper -->
   </div>
