@@ -52,61 +52,82 @@
           </div>
 
           <div class="bs-component">
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="delete_func.php" method="post">
             <table class="table table-striped table-hover ">
               <thead>
                 <tr>
-                  <th></th>
-                  <th>#</th>
-                  <th>Column heading</th>
-                  <th>Column heading</th>
-                  <th>Column heading</th>
+                  <th><a href="delete.php?sidebar=4" class="btn btn-link">Reset</a></th>
+                  <th>id</th>
+                  <th>演奏会名</th>
+                  <th>場所</th>
+                  <th>開催日</th>
+                  <th>開場</th>
+                  <th>開演</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>1</td>
-                  <td>Column content</td>
-                  <td>Column content</td>
-                  <td>Column content</td>
-                </tr>
-                <tr>
-                  <td><input type="checkbox"></td>
-                  <td>2</td>
-                  <td>Column content</td>
-                  <td>Column content</td>
-                  <td>Column content</td>
-                </tr>
-                <tr class="info">
-                  <td><input type="checkbox"></td>
-                  <td>3</td>
-                  <td>Column content</td>
-                  <td>Column content</td>
-                  <td>Column content</td>
-                </tr>
-                <tr class="success">
-                  <td><input type="checkbox"></td>
-                  <td>4</td>
-                  <td>Column content</td>
-                  <td>Column content</td>
-                  <td>Column content</td>
-                </tr>
-              </tbody>
-            </table>
+<?php
+$database = "j140098t";
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+$db_conn = pg_connect ("host=localhost dbname=$database user=j140098t");
+
+if (!$db_conn) {
+  echo "Failed connecting to postgres database $database\n";
+  exit;
+}
+
+$qu = pg_query($db_conn, "SELECT c.concert_id, c.concert_name, h.hall_name, c.concert_year, c.concert_month, c.concert_day,
+  c.concert_begin_time_hour, c.concert_begin_time_min, c.concert_open_time_hour, c.concert_open_time_min
+  FROM kps_concert c, kps_hall h where c.concert_hall = h.hall_id");
+
+  while ($data = pg_fetch_object($qu)) {
+    $date = $data->concert_year.'/'.str_pad($data->concert_month, 2, 0, STR_PAD_LEFT).'/'.str_pad($data->concert_day, 2, 0, STR_PAD_LEFT);
+    $begin = str_pad($data->concert_begin_time_hour, 2, 0, STR_PAD_LEFT).':'.str_pad($data->concert_begin_time_min, 2, 0, STR_PAD_LEFT);
+    $open = str_pad($data->concert_open_time_hour, 2, 0, STR_PAD_LEFT).':'.str_pad($data->concert_open_time_min, 2, 0, STR_PAD_LEFT);
+
+$size = 0;
+echo <<< EOD
+    <tr>
+     <td><input type="checkbox" name="row{$size}" value="$data->concert_id"></td>
+      <td>$data->concert_id</td>
+      <td>$data->concert_name</td>
+      <td>$data->hall_name</td>
+      <td>$date</td>
+      <td>$begin</td>
+      <td>$open</td>
+    </tr>
+EOD;
+$size++;
+  }
+
+pg_free_result($qu);
+pg_close($db_conn);
+
+echo <<< EOD
+                  </tbody>
+                </table>
+                <input type="hidden" name="size" value="{$size}">
+                <button type="submit" class="btn btn-primary">削除</button>
+
+                </form>
+              </div><!-- /example -->
+EOD;
+?>
+              <!-- </tbody>
+            </table>
+            <input type="hidden" name="size" value="{$size}">
+            <button type="submit" class="btn btn-primary">削除</button>
 
             </form>
-          </div>
+          </div> -->
 
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-lg-6">
               <p class="bs-component">
                 <a href="#" class="btn btn-default">Default</a>
               </p>
             </div>
-          </div>
+          </div> -->
 
 
       </div>

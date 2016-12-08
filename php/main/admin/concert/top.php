@@ -56,45 +56,133 @@
               </div>
           </div>
 
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="bs-component">
-                  <p class="text-muted">サイトに登録されている演奏会</p>
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                      <span class="badge">14</span>
-                      Concert all registed
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="bs-component">
-                  <p class="text-muted">最新の演奏会情報</p>
-                  <div class="list-group">
-                    <a href="#" class="list-group-item active">
-                      Cras justo odio
-                    </a>
-                    <a href="#" class="list-group-item">Dapibus ac facilisis in
-                    </a>
-                    <a href="#" class="list-group-item">Morbi leo risus
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="bs-component">
-                  <p class="text-muted">Concertページ更新履歴</p>
-                  <div class="list-group">
-                    <a href="#" class="list-group-item">
-                      <h4 class="list-group-item-heading">List group item heading</h4>
-                      <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    </a>
-                    <a href="#" class="list-group-item">
-                      <h4 class="list-group-item-heading">List group item heading</h4>
-                      <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                    </a>
+<?php
+$local_endpoint = "http://localhost/kps_honoka/";
+$staging_endpoint = "http://131.113.100.213/~j140098t/kps_honoka/";
+$endpoint = $staging_endpoint;
+$path = "php/main/concert/";
+
+$database = "j140098t";
+
+$db_conn = pg_connect ("host=localhost dbname=$database user=j140098t");
+
+if (!$db_conn) {
+  echo "Failed connecting to postgres database $database\n";
+  exit;
+}
+
+$qu = pg_query($db_conn, "
+select concert_id, concert_name
+from kps_concert
+order by concert_id desc");
+
+$top_concert_array = array(
+    0 => Array
+        (
+            "id" => -1,
+            "name" => ""
+        ),
+    1 => Array
+          (
+              "id" => -1,
+              "name" => ""
+          ),
+    2 => Array
+        (
+            "id" => -1,
+            "name" => ""
+        ),
+    3 => Array
+          (
+              "id" => -1,
+              "name" => ""
+          ),
+    4 => Array
+        (
+            "id" => -1,
+            "name" => ""
+        ),
+);
+$size = sizeof($top_concert_array);
+$total = 0;
+while ($data = pg_fetch_object($qu)) {
+  if ($total < $size) {
+    $top_concert_array[$total]["id"] = $data->concert_id;
+    $top_concert_array[$total]["name"] = $data->concert_name;
+  }
+$total++;
+  }
+echo <<<EOD
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="bs-component">
+        <p class="text-muted">サイトに登録されている演奏会</p>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="badge">$total</span>
+            Concert all registed
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="bs-component">
+        <p class="text-muted">演奏会情報 <small>new</small></p>
+        <div class="list-group">
+EOD;
+for ($i = 0; $i < $size; $i++) {
+  $id =  $top_concert_array[$i]["id"];
+  $name = $top_concert_array[$i]["name"];
+  if ($i == 0) {
+
+echo <<<EOD
+        <a href="{$endpoint}{$path}detail.php?sidebar=1&id={$id}" class="list-group-item active">
+          $name
+        </a>
+EOD;
+  } else {
+echo <<<EOD
+        <a href="{$endpoint}{$path}detail.php?sidebar=1&id={$id}" class="list-group-item">
+          $name
+        </a>
+EOD;
+  }
+}
+
+echo <<< EOD
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="bs-component">
+        <p class="text-muted">Concertページ更新履歴 <small>new</small></p>
+        <div class="list-group">
+EOD;
+
+$qu = pg_query($db_conn, "SELECT l.log_id, tl.db_table_name, l.log_event, m.login_name, l.log_date
+  FROM log l, member m, table_list tl
+  where l.log_target_table = tl.db_table_id and l.log_editor = m.id and
+  tl.db_table_name = 'kps_concert'
+  order by l.log_id desc");
+$log_size = 5;
+$i = 0;
+  while ($data = pg_fetch_object($qu)) {
+    if ($i > $log_size) break;
+echo <<< EOD
+<a href="#" class="list-group-item">
+  <h4 class="list-group-item-heading">$data->log_event</h4>
+  <p class="list-group-item-text">$data->log_date</p>
+  <small>Editor: $data->login_name</small>
+</a>
+EOD;
+$i++;
+  }
+
+pg_free_result($qu);
+pg_close($db_conn);
+?>
                   </div>
                 </div>
               </div>

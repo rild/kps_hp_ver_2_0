@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="../../../../css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="../../../../assets/css/rild.css">
   <link rel="stylesheet" type="text/css" href="../../../../assets/css/sidebar.css">
+  <link rel="stylesheet" type="text/css" href="../../../../assets/font-awesome-4.7.0/css/font-awesome.min.css">
 
   <style type="text/css">
 
@@ -39,45 +40,35 @@
 
       <!-- Page Content -->
       <div id="page-content-wrapper">
-          <div class="container-fluid">
-              <div class="row">
-                  <div class="col-lg-12">
-                    <div class="page-header">
-                      <h1>すべての演奏会</h1>
-                    </div>
-                  </div>
-              </div>
-          </div>
-
-          <div class="bs-docs-section">
-
+        <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12">
                 <div class="bs-component">
                   <ul class="breadcrumb">
-                    <li class="active">Home</li>
+                    <li class="active">List</li>
                   </ul>
 
-                  <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li class="active">Library</li>
-                  </ul>
-
-                  <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Library</a></li>
-                    <li class="active">Data</li>
-                  </ul>
+                  <!-- <ul class="breadcrumb">
+                    <li><a href="#">List</a></li>
+                    <li class="active">Regist</li>
+                  </ul> -->
                 </div>
               </div>
 
+                <div class="col-lg-12">
+                  <div class="page-header">
+                    <h1>すべての演奏会</h1>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+          <div class="bs-docs-section">
+
+            <div class="row">
               <!-- Tables
               ================================================== -->
               <div class="col-lg-12">
-                <div class="page-header">
-                  <h1 id="tables">演奏会一覧</h1>
-                </div>
-
                   <table class="table table-striped table-hover ">
                     <thead>
                       <tr>
@@ -87,10 +78,16 @@
                         <th>開催日</th>
                         <th>開場</th>
                         <th>開演</th>
+                        <th>詳細</th>
                       </tr>
                     </thead>
                       <tbody>
 <?php
+$local_endpoint = "http://localhost/kps_honoka/";
+$staging_endpoint = "http://131.113.100.213/~j140098t/kps_honoka/";
+$endpoint = $staging_endpoint;
+$path = "php/main/concert/";
+
 $database = "j140098t";
 
 $db_conn = pg_connect ("host=localhost dbname=$database user=j140098t");
@@ -117,6 +114,11 @@ $qu = pg_query($db_conn, "SELECT c.concert_id, c.concert_name, h.hall_name, c.co
       <td>$date</td>
       <td>$begin</td>
       <td>$open</td>
+      <td>
+        <i class="fa fa-arrow-circle-right" aria-hidden="true">
+        <a href="{$endpoint}{$path}detail.php?sidebar=1&id={$data->concert_id}"> > </a>
+        </i>
+      </td>
     </tr>
 EOD;
   }
@@ -128,98 +130,6 @@ pg_close($db_conn);
                   </tbody>
                 </table>
               </div><!-- /example -->
-
-
-              <div class="col-lg-12">
-                <div class="page-header">
-                  <h1 id="tables">Tables</h1>
-                </div>
-
-                <div class="bs-component">
-                  <table class="table table-striped table-hover ">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Column heading</th>
-                        <th>Column heading</th>
-                        <th>Column heading</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                      </tr>
-                      <tr class="info">
-                        <td>3</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                      </tr>
-                      <tr class="success">
-                        <td>4</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                      </tr>
-                      <tr class="danger">
-                        <td>5</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                      </tr>
-                      <tr class="warning">
-                        <td>6</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                      </tr>
-                      <tr class="active">
-                        <td>7</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                        <td>Column content</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div><!-- /example -->
-              </div>
-
-              <div class="col-lg-4">
-                <div class="bs-component ">
-                  <ul class="pagination">
-                    <li class="disabled"><a href="#">&laquo;</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="col-lg-4">
-                <div class="bs-component">
-                  <ul class="pager">
-                    <li><a href="#">Previous</a></li>
-                    <li><a href="#">Next</a></li>
-                  </ul>
-
-                  <ul class="pager">
-                    <li class="previous disabled"><a href="#">&larr; Older</a></li>
-                    <li class="next"><a href="#">Newer &rarr;</a></li>
-                  </ul>
-                </div>
-              </div>
 
             </div> <!-- /row end -->
           </div>

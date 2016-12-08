@@ -41,6 +41,19 @@
       <div id="page-content-wrapper">
           <div class="container-fluid">
               <div class="row">
+                <div class="col-lg-12">
+                  <div class="bs-component">
+                    <ul class="breadcrumb">
+                      <li class="active">List</li>
+                    </ul>
+
+                    <!-- <ul class="breadcrumb">
+                      <li><a href="#">List</a></li>
+                      <li class="active">Regist</li>
+                    </ul> -->
+                  </div>
+                </div>
+
                   <div class="col-lg-12">
                     <div class="page-header">
                       <h1>すべての演奏会会場</h1>
@@ -52,34 +65,13 @@
           <div class="bs-docs-section">
 
             <div class="row">
-              <div class="col-lg-12">
-                <div class="bs-component">
-                  <ul class="breadcrumb">
-                    <li class="active">Home</li>
-                  </ul>
-
-                  <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li class="active">Library</li>
-                  </ul>
-
-                  <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Library</a></li>
-                    <li class="active">Data</li>
-                  </ul>
-                </div>
-              </div>
 
               <!-- Tables
               ================================================== -->
               <div class="col-lg-12">
-                <div class="page-header">
-                  <h1 id="tables">演奏会一覧</h1>
-                </div>
-
 <?php
-$staging_endpoint = "http://131.113.100.213/~j140098t/login_project_sample/";
+$local_endpoint = "http://localhost/kps_honoka/";
+$staging_endpoint = "http://131.113.100.213/~j140098t/kps_honoka/";
 $endpoint = $staging_endpoint;
 $path = "php/main/admin/concert/hall/";
 $database = "j140098t";
@@ -100,7 +92,6 @@ $edit != $edit_list["regist"] &&
 $edit != $edit_list["delete"]
 ) $edit = 0;
 // <----- CHECK END
-<form class="form-horizontal">
 echo <<< EOD
                 <table class="table table-striped table-hover ">
                     <thead>
@@ -136,51 +127,68 @@ EOD;
 pg_free_result($qu);
 pg_close($db_conn);
 
+$regist_url = $endpoint.$path."regist.php";
+$delete_url = $endpoint.$path."delete.php";
 echo <<< EOD
                   </tbody>
                 </table>
               </div><!-- /example -->
-        <div class="col-lg-6">
-          <div style="margin-bottom: 15px;">
-           <div class="btn-toolbar bs-component" style="margin: 0;">
-            <div class="btn-group">
-EOD;
 
-  $url = $endpoint.$path."all.php"
-if ($edit == $edit_list["regist"]) {
-echo <<< EOD
-<a href="#" class="btn btn-primary">登録</a>
-<ul class="dropdown-menu">
-  <li><a href="{$url}?sidebar=5&edit=2">削除</a></li>
-</ul>
+              </div> <!-- /row end -->
+            </div> <!-- section end -->
+
+            <div class="bs-docs-section">
+              <div class="row">
+                <div class="col-lg-6">
+                  <p class="bs-component">
+                   <a href="{$regist_url}?sidebar=5" class="btn btn-primary">会場登録</a>
+                   <a href="{$delete_url}?sidebar=5" class="btn btn-default">削除</a>
+                  </p>
+                </div>
+              </div>
+            </div>  <!-- section end -->
 EOD;
-}
-else if ($edit == $edit_list["delete"]) {
-echo <<< EOD
-<a href="#" class="btn btn-primary">削除</a>
-<ul class="dropdown-menu">
-  <li><a href="{$url}?sidebar=5&edit=2">削除</a></li>
-</ul>
-EOD;
-}
-else {
-echo <<< EOD
-<a href="#" class="btn btn-default">未選択</a>
-<ul class="dropdown-menu">
-  <li><a href="{$url}?sidebar=5&edit=1">登録</a></li>
-  <li><a href="{$url}?sidebar=5&edit=2">削除</a></li>
-</ul>
-EOD;
-}
+// <div class="col-lg-6">
+//   <div style="margin-bottom: 15px;">
+//    <div class="btn-toolbar bs-component" style="margin: 0;">
+//     <div class="btn-group">
+
+  $url = $endpoint.$path."all.php";
+// if ($edit == $edit_list["regist"]) {
+// echo <<< EOD
+// <a href="#2" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+//   登録
+//   <span class="caret"></span>
+// </a>
+// <ul class="dropdown-menu">
+//   <li><a href="{$url}?sidebar=5&edit={$edit_list["delete"]}">削除</a></li>
+// </ul>
+// EOD;
+// }
+// else if ($edit == $edit_list["delete"]) {
+// echo <<< EOD
+// <a href="#2" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+//   削除
+//   <span class="caret"></span>
+// </a>
+// <ul class="dropdown-menu">
+//   <li><a href="{$url}?sidebar=5&edit={$edit_list["regist"]}">登録</a></li>
+// </ul>
+// EOD;
+// }
+// else {
+// echo <<< EOD
+// <a href="#2" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+//   未選択
+//   <span class="caret"></span>
+// </a>
+// <ul class="dropdown-menu">
+//   <li><a href="{$url}?sidebar=5&edit={$edit_list["delete"]}">削除</a></li>
+//   <li><a href="{$url}?sidebar=5&edit={$edit_list["regist"]}">登録</a></li>
+// </ul>
+// EOD;
+// }
  ?>
-            </div>
-           </div>
-          </div>
-        </div>
-
-            </div> <!-- /row end -->
-          </div>
-
       </div>
       <!-- /#page-content-wrapper -->
   </div>
