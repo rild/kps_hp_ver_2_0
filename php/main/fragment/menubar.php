@@ -1,4 +1,7 @@
 <?php
+if (!isset($_SESSION)) { session_start(); }?>
+
+<?php
 $local_endpoint = "http://localhost/kps_honoka/";
 $staging_endpoint = "http://131.113.100.213/~j140098t/kps_honoka/";
 $endpoint = $staging_endpoint;
@@ -27,11 +30,11 @@ echo <<<EOM
               <!-- admin -->
               <!-- <li class="divider"></li> -->
               <li><a href="{$endpoint}php/main/admin/concert/top.php">Concert</a></li>
-              <li><a href="{$endpoint}php/main/admin/member/concert.php#">Member</a></li>
+              <li><a href="{$endpoint}php/main/admin/member/top.php">Member</a></li>
               <!--  <li><a href="{$endpoint}php/main/admin/concert/concert.php#">Article</a></li> -->
               <!-- user config -->
               <li class="divider"></li>
-              <li><a href="{$endpoint}php/main/config/top.php#">User</a></li>
+              <li><a href="{$endpoint}php/main/config/top.php">User</a></li>
               <li><a href="#">Help</a></li>
             </ul>
           </li>
@@ -44,8 +47,12 @@ echo <<<EOM
           <!-- <button type="submit" class="btn btn-default">Submit</button> -->
         <!-- </form> -->
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{$endpoint}php/users/signin/login.php">Logout</a></li>
+          <li><a href="{$endpoint}php/main/logout.php">Logout</a></li>
         </ul>
+        <div class="navbar-form navbar-right bs-component">
+          <span class="label label-default">Login as</span>
+          <span class="label label-primary">{$_SESSION['login_name']}</span>
+        </div>
       </div>
     </div>
   </div>

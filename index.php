@@ -38,7 +38,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="/" class="navbar-brand">KPS</a>
+          <a href="/~j140098t/kps_honoka/" class="navbar-brand">KPS</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -49,10 +49,10 @@
           <ul class="nav navbar-nav">
             <li><a href="#">Top</a></li>
             <li><a href="#concert">Concert</a></li>
-            <li><a href="#">Blog</a></li>
+            <!-- <li><a href="#">Blog</a></li>
             <li><a href="#">Portpolio</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="#">Help</a></li>
+            <li><a href="#">Help</a></li> -->
           </ul>
           <!-- search -->
           <ul class="nav navbar-nav navbar-right">
@@ -68,13 +68,14 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 outline">
-          <h1>ようこそ</h1>
-          <h1>慶應ピアノソサィエティーへ</h1>
-          <p>Welcome to Keio Piano Society</p>
-          <div class="download">
+          <h1>Staging Test HP</h1>
+          <h1>for</h1>
+          <h1>慶應ピアノソサィエティー</h1>
+          <p>理工学部実験で試験的に作られたサイトです。</p>
+          <!-- <div class="download">
             <a href="//github.com/windyakin/Honoka/releases" class="btn btn-warning btn-lg"><i class="fa fa-github-alt"></i> Download from GitHub</a>
             <a href="/bootstrap-ja.html" class="btn btn-primary btn-lg"><i class="fa fa-play"></i> Watch Demo</a>
-          </div>
+          </div> -->
           <div class="basedon small">
             <span class="last-version"></span> ・ KPSは <a href="http://www.gakuji.keio.ac.jp/life/dantai/">文連</a> に加盟している慶應の公認学生団体です
           </div>
@@ -84,7 +85,7 @@
   </div>
 
 
-  <section class="section section-inverse" id="concert">
+  <section class="section section-default" id="intro">
     <div class="container">
       <div class="row">
         <div class="col-xs-12 subtitle">
@@ -94,13 +95,93 @@
       </div>
       <div class="row">
         <div class="col-md-12 text-center">
-          <p>アカウントを持っていない場合は <a href="//github.com/windyakin/Honoka#readme">README</a> または <a href="//github.com/windyakin/Honoka/wiki">Wiki</a> をご確認ください</p>
+          <p>アカウントを持っていない場合は、サイトの管理者にご連絡ください。</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-default" id="intro">
+  <section class="section section-inverse" id="concert">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 subtitle">
+          <h1>演奏会情報</h1>
+          <p>最新の演奏会情報を掲載しています。</p>
+        </div>
+      </div>
+      <div class="row">
+
+<?php
+$local_endpoint = "http://localhost/kps_honoka/";
+$staging_endpoint = "http://131.113.100.213/~j140098t/kps_honoka/";
+$endpoint = $staging_endpoint;
+$path = "php/main/concert/";
+
+$database = "j140098t";
+
+$db_conn = pg_connect ("host=localhost dbname=$database user=j140098t");
+
+if (!$db_conn) {
+  echo "Failed connecting to postgres database $database\n";
+  exit;
+}
+
+$qu = pg_query($db_conn, "SELECT c.concert_id, c.concert_name, h.hall_name, c.concert_year, c.concert_month, c.concert_day,
+  c.concert_begin_time_hour, c.concert_begin_time_min, c.concert_open_time_hour, c.concert_open_time_min
+  FROM kps_concert c, kps_hall h where c.concert_hall = h.hall_id order by c.concert_id desc");
+
+$i = 0;
+while ($data = pg_fetch_object($qu)) {
+    if ($i > 2) break;
+    $date = $data->concert_year.'/'.str_pad($data->concert_month, 2, 0, STR_PAD_LEFT).'/'.str_pad($data->concert_day, 2, 0, STR_PAD_LEFT);
+    $begin = str_pad($data->concert_begin_time_hour, 2, 0, STR_PAD_LEFT).':'.str_pad($data->concert_begin_time_min, 2, 0, STR_PAD_LEFT);
+    $open = str_pad($data->concert_open_time_hour, 2, 0, STR_PAD_LEFT).':'.str_pad($data->concert_open_time_min, 2, 0, STR_PAD_LEFT);
+
+echo <<< EOD
+          <div class="col-md-4">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">$data->concert_name</h3>
+            </div>
+            <div class="panel-body">
+            <div class="bs-component">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  $data->hall_name
+                </div>
+              </div>
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <span class="badge">$date</span>
+                  開催日
+                </li>
+                <li class="list-group-item">
+                  <span class="badge">$begin</span>
+                  開場
+                </li>
+                <li class="list-group-item">
+                  <span class="badge">$open</span>
+                  開演
+                </li>
+              </ul>
+            </div>
+            </div>
+          </div>
+          </div>
+EOD;
+$i++;
+  }
+
+pg_free_result($qu);
+pg_close($db_conn);
+
+?>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="section section-default" id="intro">
     <div class="container">
       <div class="row">
         <div class="col-xs-12 subtitle">
@@ -553,7 +634,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 <footer class="small">
@@ -561,7 +642,6 @@
     <ul>
       <li><iframe src="https://ghbtns.com/github-btn.html?user=windyakin&repo=Honoka&type=star&count=true" frameborder="0" scrolling="0" width="90px" height="20px"></iframe></li>
       <li><a href="https://twitter.com/share" class="twitter-share-button" data-lang="ja" data-dnt="true">ツイート</a></li>
-      <li><div class="fb-like" data-href="http://honokak.osaka/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div></li>
       <li><a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-balloon" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;"></a></li>
     </ul>
   </div>

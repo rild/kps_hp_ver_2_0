@@ -41,6 +41,9 @@
       <div id="page-content-wrapper">
           <div class="container-fluid">
               <div class="row">
+                <?php
+                include('../../fragment/top_message.php');
+                ?>
                   <div class="col-lg-12">
                     <div class="page-header">
                       <h1>演奏会を登録する</h1>

@@ -35,7 +35,7 @@
 
       <!-- Sidebar -->
       <?php
-      include('../../fragment/sidebar_concert_admin.php');
+      include('../../fragment/sidebar_member_admin.php');
       ?>
       <!-- /#sidebar-wrapper -->
 
@@ -61,11 +61,8 @@
                 <tr>
                   <th><a href="delete.php?sidebar=4" class="btn btn-link">Reset</a></th>
                   <th>id</th>
-                  <th>演奏会名</th>
-                  <th>場所</th>
-                  <th>開催日</th>
-                  <th>開場</th>
-                  <th>開演</th>
+                  <th>ログインID</th>
+                  <th>名前</th>
                 </tr>
               </thead>
               <tbody>
@@ -79,25 +76,17 @@ if (!$db_conn) {
   exit;
 }
 
-$qu = pg_query($db_conn, "SELECT c.concert_id, c.concert_name, h.hall_name, c.concert_year, c.concert_month, c.concert_day,
-  c.concert_begin_time_hour, c.concert_begin_time_min, c.concert_open_time_hour, c.concert_open_time_min
-  FROM kps_concert c, kps_hall h where c.concert_hall = h.hall_id");
+$qu = pg_query($db_conn, "SELECT m.id, m.login_name, md.member_detail_name, md.member_detail_birthday, md.member_detail_mail
+  FROM member m left outer join member_detail md on m.id = md.member order by m.id");
 
   while ($data = pg_fetch_object($qu)) {
-    $date = $data->concert_year.'/'.str_pad($data->concert_month, 2, 0, STR_PAD_LEFT).'/'.str_pad($data->concert_day, 2, 0, STR_PAD_LEFT);
-    $begin = str_pad($data->concert_begin_time_hour, 2, 0, STR_PAD_LEFT).':'.str_pad($data->concert_begin_time_min, 2, 0, STR_PAD_LEFT);
-    $open = str_pad($data->concert_open_time_hour, 2, 0, STR_PAD_LEFT).':'.str_pad($data->concert_open_time_min, 2, 0, STR_PAD_LEFT);
-
 $size = 0;
 echo <<< EOD
     <tr>
-     <td><input type="checkbox" name="row{$size}" value="$data->concert_id"></td>
-      <td>$data->concert_id</td>
-      <td>$data->concert_name</td>
-      <td>$data->hall_name</td>
-      <td>$date</td>
-      <td>$begin</td>
-      <td>$open</td>
+       <td><input type="checkbox" name="row{$size}" value="$data->id"></td>
+       <td>$data->id</td>
+       <td>$data->login_name</td>
+       <td>$data->member_detail_name</td>
     </tr>
 EOD;
 $size++;

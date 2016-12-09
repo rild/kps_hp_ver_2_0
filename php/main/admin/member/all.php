@@ -34,33 +34,20 @@
 
       <!-- Sidebar -->
         <?php
-        include('../../fragment/sidebar_concert_admin.php');
+        include('../../fragment/sidebar_member_admin.php');
         ?>
       <!-- /#sidebar-wrapper -->
 
       <!-- Page Content -->
       <div id="page-content-wrapper">
         <div class="container-fluid">
+          <?php
+          include('../../fragment/top_message.php');
+          ?>
             <div class="row">
-              <div class="col-lg-12">
-                <div class="bs-component">
-                  <ul class="breadcrumb">
-                    <li class="active">List</li>
-                  </ul>
-
-                  <!-- <ul class="breadcrumb">
-                    <li><a href="#">List</a></li>
-                    <li class="active">Regist</li>
-                  </ul> -->
-                </div>
-              </div>
-
-              <?php
-              include('../../fragment/top_message.php');
-              ?>
                 <div class="col-lg-12">
                   <div class="page-header">
-                    <h1>すべての演奏会</h1>
+                    <h1>すべてのメンバー</h1>
                   </div>
                 </div>
             </div>
@@ -76,12 +63,10 @@
                     <thead>
                       <tr>
                         <th>id</th>
-                        <th>演奏会名</th>
-                        <th>場所</th>
-                        <th>開催日</th>
-                        <th>開場</th>
-                        <th>開演</th>
-                        <th>詳細</th>
+                        <th>ログインID</th>
+                        <th>名前</th>
+                        <th>誕生日</th>
+                        <th>メールアドレス</th>
                       </tr>
                     </thead>
                       <tbody>
@@ -100,29 +85,17 @@ if (!$db_conn) {
   exit;
 }
 
-$qu = pg_query($db_conn, "SELECT c.concert_id, c.concert_name, h.hall_name, c.concert_year, c.concert_month, c.concert_day,
-  c.concert_begin_time_hour, c.concert_begin_time_min, c.concert_open_time_hour, c.concert_open_time_min
-  FROM kps_concert c, kps_hall h where c.concert_hall = h.hall_id");
+$qu = pg_query($db_conn, "SELECT m.id, m.login_name, md.member_detail_name, md.member_detail_birthday, md.member_detail_mail
+  FROM member m left outer join member_detail md on m.id = md.member order by m.id");
 
   while ($data = pg_fetch_object($qu)) {
-    $date = $data->concert_year.'/'.str_pad($data->concert_month, 2, 0, STR_PAD_LEFT).'/'.str_pad($data->concert_day, 2, 0, STR_PAD_LEFT);
-    $begin = str_pad($data->concert_begin_time_hour, 2, 0, STR_PAD_LEFT).':'.str_pad($data->concert_begin_time_min, 2, 0, STR_PAD_LEFT);
-    $open = str_pad($data->concert_open_time_hour, 2, 0, STR_PAD_LEFT).':'.str_pad($data->concert_open_time_min, 2, 0, STR_PAD_LEFT);
-
     echo <<< EOD
     <tr>
-      <td>$data->concert_id</td>
-      <td>$data->concert_name</td>
-      <td>$data->hall_name</td>
-      <td>$date</td>
-      <td>$begin</td>
-      <td>$open</td>
-      <td>
-      <a href="{$endpoint}{$path}detail.php?sidebar=1&id={$data->concert_id}">
-      <i class="fa fa-arrow-circle-right" aria-hidden="true">
-      </i>
-      </a>
-      </td>
+      <td>$data->id</td>
+      <td>$data->login_name</td>
+      <td>$data->member_detail_name</td>
+      <td>$data->member_detail_birthday</td>
+      <td>$data->member_detail_mail</td>
     </tr>
 EOD;
   }

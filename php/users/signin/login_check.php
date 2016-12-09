@@ -1,6 +1,10 @@
+<?php session_start(); ?>
+
 <?php
 $local_endpoint = "http://http://localhost/kps_honoka/";
 $staging_endpoint = "http://131.113.100.213/~j140098t/kps_honoka/";
+$endpoint = $staging_endpoint;
+$path = "php/users/signin/";
 
 $env_url = "../../../.env";
 // $url = "jsondata.json";
@@ -41,7 +45,7 @@ $login_name = $_POST['login_name'];
 $password = $_POST['login_password'];
 
 if (empty($login_name)||empty($password)) {
-  $url = $staging_endpoint.'php/users/signin/login.php' ;
+  $url = $endpoint.$path.'login.php' ;
   $no = 2;
   header("Location: {$url}?no=".$no);
   exit;
@@ -50,12 +54,8 @@ if (empty($login_name)||empty($password)) {
 
 $con_str = "host={$bc_host[$debug]} dbname={$bc_name[$debug]} user={$bc_user[$debug]}" ;
 # $con_str = "host=localhost dbname=testdb user=test password=test_paSS2";
-print "pgconnect()<br>";
-print "input: $login_name $password<br>";
-print "$con_str";
 
 $conn = pg_connect ($con_str); // ここで処理が止まっている様子
-print "debug";
 
 # $hashpwd = password_hash($password, PASSWORD_DEFAULT);
 
@@ -71,17 +71,25 @@ if(pg_num_rows($result)==1){
   if(password_verify($password,$row['password'])){
     // print "{$row['login_name']}さん<br>ようこそ<br>";
     // print "<a href=\"../../main/top.php\">Topページ</a>へ";
+    $_SESSION['login_name'] = $login_name;
+    $_SESSION['id'] = $row['id'];
+    $_SESSION['site'] = 'kps_hp';
+
     $url = $staging_endpoint.'php/main/top.php' ;
     header("Location: {$url}");
     exit;
   }else{
     print "パスワードが間違っています<br>";
     print "<a href=\"login.php\">ログインページ</a>へ";
+    $url = $endpoint.$path.'login.php' ;
+    $no = 5;
+    header("Location: {$url}?no=".$no);
+    exit;
   }
 }else{
   print "ユーザ名は存在しません<br>";
   # $url = $local_endpoint.'php/users/signin/login.php';
-  $url = $staging_endpoint.'php/users/signin/login.php' ;
+  $url = $endpoint.$path.'login.php' ;
   $no = 1;
   header("Location: {$url}?no=".$no);
   exit;

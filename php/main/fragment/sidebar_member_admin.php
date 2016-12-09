@@ -3,7 +3,7 @@ $local_endpoint = "http://localhost/kps_honoka/";
 $staging_endpoint = "http://131.113.100.213/~j140098t/kps_honoka/";
 $endpoint = $staging_endpoint;
 
-$path = "php/main/admin/concert/";
+$path = "php/main/admin/member/";
 
 $sidebar = 0;
 $sidebar_list = array(
@@ -12,7 +12,6 @@ $sidebar_list = array(
     "search" => 2,
     "regist" => 3,
     "delete" => 4,
-    "hall" => 5,
 );
 
 if(isset($_GET['sidebar'])) {
@@ -22,10 +21,9 @@ if(isset($_GET['sidebar'])) {
 // <----- CHECK query
 if ($sidebar != $sidebar_list["home"] &&
 $sidebar != $sidebar_list["all"] &&
-$sidebar != $sidebar_list["search"] &&
+// $sidebar != $sidebar_list["search"] &&
 $sidebar != $sidebar_list["regist"] &&
-$sidebar != $sidebar_list["delete"] &&
-$sidebar != $sidebar_list["hall"]
+$sidebar != $sidebar_list["delete"]
 ) $sidebar = 0;
 // <----- CHECK END
 
@@ -58,17 +56,17 @@ echo <<<EOM
 EOM;
 }
 
-// search 2
-$url = $endpoint.$path."search.php?sidebar=".$sidebar_list["search"];
-if ($sidebar == $sidebar_list["search"]) {
-echo <<<EOM
-<li class="active"><a href="{$url}">検索</a></li>
-EOM;
-} else {
-echo <<<EOM
-<li><a href="{$url}">検索</a></li>
-EOM;
-}
+// // search 2
+// $url = $endpoint.$path."search.php?sidebar=".$sidebar_list["search"];
+// if ($sidebar == $sidebar_list["search"]) {
+// echo <<<EOM
+// <li class="active"><a href="{$url}">検索</a></li>
+// EOM;
+// } else {
+// echo <<<EOM
+// <li><a href="{$url}">検索</a></li>
+// EOM;
+// }
 
 // regist 3
 $url = $endpoint.$path."regist.php?sidebar=".$sidebar_list["regist"];
@@ -91,18 +89,6 @@ EOM;
 } else {
 echo <<<EOM
 <li><a href="{$url}">削除</a></li>
-EOM;
-}
-
-// hall 5
-$url = $endpoint.$path."hall/all.php?sidebar=".$sidebar_list["hall"];
-if ($sidebar == $sidebar_list["hall"]) {
-echo <<<EOM
-<li class="active"><a href="{$url}">会場</a></li>
-EOM;
-} else {
-echo <<<EOM
-<li><a href="{$url}">会場</a></li>
 EOM;
 }
 
